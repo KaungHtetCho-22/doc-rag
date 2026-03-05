@@ -1,0 +1,58 @@
+stages:
+  collect:
+    cmd: python ingestion/collect.py
+    deps:
+      - ingestion/collect.py
+    outs:
+      - data/raw
+
+  parse:
+    cmd: python ingestion/parse.py
+    deps:
+      - ingestion/parse.py
+      - data/raw
+    outs:
+      - data/processed
+
+  generate_training_data:
+    cmd: python training/generate_data.py
+    deps:
+      - training/generate_data.py
+      - data/processed
+    outs:
+      - data/training/qa_pairs.jsonl
+
+  split:
+    cmd: python training/split_data.py
+    deps:
+      - training/split_data.py
+      - data/training/qa_pairs.jsonl
+    outs:
+      - data/training/train.jsonl
+      - data/training/eval.jsonl
+
+  finetune:
+    cmd: python training/finetune.py
+    deps:
+      - training/finetune.py
+      - data/training/train.jsonl
+      - data/training/eval.jsonl
+    outs:
+      - models/adapter
+
+  export_gguf:
+    cmd: python training/export_gguf.py
+    deps:
+      - training/export_gguf.py
+      - models/adapter
+    outs:
+      - models/docrag-3b-q4.gguf
+
+  evaluate:
+    cmd: python evaluation/run_ragas.py
+    deps:
+      - evaluation/run_ragas.py
+      - models/docrag-3b-q4.gguf
+    metrics:
+      - evaluation/results/ragas_scores.json:
+          cache: false
