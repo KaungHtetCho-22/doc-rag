@@ -1,0 +1,61 @@
+# ── Python ────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# ── Virtual environments ──────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── Environment variables (NEVER commit API keys) ─────────────────────
+.env
+!.env.example
+
+# ── Data (tracked by DVC, not git) ───────────────────────────────────
+data/raw/
+data/processed/
+data/training/
+
+# ── Models (too large for git) ────────────────────────────────────────
+models/
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# ── MLflow ────────────────────────────────────────────────────────────
+mlruns/
+
+# ── Jupyter ───────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── OS ────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ───────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+
+# ── DVC cache ────────────────────────────────────────────────────────
+.dvc/cache/
+.dvc/tmp/
+
+# ── Logs ─────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Qdrant local storage ──────────────────────────────────────────────
+qdrant_storage/
+
+# ── HuggingFace / Unsloth cache ───────────────────────────────────────
+.cache/
