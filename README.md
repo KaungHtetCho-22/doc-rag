@@ -259,3 +259,5 @@ Enterprise customers cannot send documents to cloud APIs (HIPAA, GDPR, legal pri
 
 **Why MLflow over W&B?**
 Zero external dependencies. Fully local. For a portfolio project, not requiring vendor accounts is a stronger reproducibility signal.
+
+![DocRAG architecture](architecture.png)
