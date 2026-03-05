@@ -59,3 +59,10 @@ qdrant_storage/
 
 # ── HuggingFace / Unsloth cache ───────────────────────────────────────
 .cache/
+
+# ── Unsloth compiled cache ────────────────────────────────────────────
+unsloth_compiled_cache/
+/tmp/unsloth_compiled_cache/
+
+# ── DVC ignored files ─────────────────────────────────────────────────
+.dvcignore
