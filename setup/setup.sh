@@ -1,7 +1,6 @@
 #!/bin/bash
 # ─────────────────────────────────────────────────────────────────────
 # DocRAG Platform — Environment Setup (uv)
-# Run from the project root: bash stage1/setup.sh
 # ─────────────────────────────────────────────────────────────────────
 
 set -e
@@ -153,10 +152,4 @@ echo "║           Setup Complete! ✅                 ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
 echo "Next steps:"
-echo "  1. Edit .env  →  add GROQ_API_KEY and WANDB_API_KEY"
-echo "  2. Run: wandb login"
-echo "  3. Run: python verify_setup.py"
-echo "  4. Run: python ingestion/collect.py"
-echo ""
-echo "Activate .venv in future sessions:"
-echo "  source .venv/bin/activate"
+echo "  Run: python verify_setup.py"
