@@ -215,6 +215,16 @@ def build_ui() -> gr.Blocks:
 
     with gr.Blocks(
         title = "DocRAG — CV Research Intelligence",
+        theme = gr.themes.Base(
+            primary_hue   = gr.themes.colors.slate,
+            secondary_hue = gr.themes.colors.zinc,
+            neutral_hue   = gr.themes.colors.zinc,
+            font          = [gr.themes.GoogleFont("IBM Plex Mono"), "monospace"],
+        ),
+        css = """
+        .gradio-container { max-width: 1200px; margin: 0 auto; }
+        footer { display: none !important; }
+        """,
     ) as demo:
 
         gr.Markdown("""
@@ -446,16 +456,4 @@ if __name__ == "__main__":
         server_name = args.host,
         server_port = args.port,
         share       = args.share,
-        theme       = gr.themes.Base(
-            primary_hue   = gr.themes.colors.slate,
-            secondary_hue = gr.themes.colors.zinc,
-            neutral_hue   = gr.themes.colors.zinc,
-            font          = [gr.themes.GoogleFont("IBM Plex Mono"), "monospace"],
-        ),
-        css = """
-        .gradio-container { max-width: 1200px; margin: 0 auto; }
-        .answer-box textarea { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; line-height: 1.7; }
-        .query-btn { background: #0f172a !important; color: #f8fafc !important; }
-        footer { display: none !important; }
-        """,
     )
