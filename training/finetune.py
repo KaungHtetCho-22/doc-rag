@@ -29,7 +29,7 @@ from loguru import logger
 load_dotenv()
 
 # ── Config ────────────────────────────────────────────────────────────
-BASE_MODEL     = os.getenv("BASE_MODEL", "unsloth/Llama-3.2-3B-Instruct")
+BASE_MODEL     = os.getenv("BASE_MODEL", "unsloth/Llama-3.2-1B-Instruct")
 TRAINING_DIR   = Path(os.getenv("DATA_TRAINING_DIR", "data/training"))
 MODELS_DIR     = Path("models")
 ADAPTER_DIR    = MODELS_DIR / "adapter"
@@ -232,7 +232,7 @@ def main(dry_run: bool, no_export: bool):
             report_to               = "none",   # we handle logging manually
             max_seq_length          = MAX_SEQ_LENGTH,
             dataset_text_field      = "text",
-            packing                 = True,
+            packing                 = False,
             seed                    = 42,
         )
 
@@ -261,7 +261,13 @@ def main(dry_run: bool, no_export: bool):
         logger.info(f"VRAM before training: {vram_before:.2f} GB")
         mlflow.log_metric("vram_before_train_gb", vram_before)
 
-        trainer_stats = trainer.train(resume_from_checkpoint=True)
+        # Resume from latest checkpoint if available, else start fresh
+        import glob
+        checkpoints = sorted(glob.glob(str(ADAPTER_DIR / "checkpoint-*")))
+        resume = checkpoints[-1] if checkpoints else None
+        if resume:
+            logger.info(f"Resuming from checkpoint: {resume}")
+        trainer_stats = trainer.train(resume_from_checkpoint=resume)
 
         train_loss = trainer_stats.training_loss
         runtime    = trainer_stats.metrics.get("train_runtime", 0)
