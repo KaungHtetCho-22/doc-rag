@@ -40,19 +40,11 @@ stages:
     outs:
       - models/adapter
 
-  export_gguf:
-    cmd: python training/export_gguf.py
-    deps:
-      - training/export_gguf.py
-      - models/adapter
-    outs:
-      - models/docrag-3b-q4.gguf
-
   evaluate:
     cmd: python evaluation/run_ragas.py
     deps:
       - evaluation/run_ragas.py
-      - models/docrag-3b-q4.gguf
+      - data/training/train.jsonl
     metrics:
       - evaluation/results/ragas_scores.json:
           cache: false
