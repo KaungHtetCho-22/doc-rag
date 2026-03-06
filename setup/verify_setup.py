@@ -1,12 +1,3 @@
-"""
-verify_setup.py
-─────────────────────────────────────────────────────────
-Run after setup.sh to confirm every component is working.
-
-Usage:
-    python verify_setup.py
-"""
-
 import sys
 import os
 import importlib.metadata
@@ -136,7 +127,7 @@ check("Gradio", check_gradio)
 def check_arxiv():
     import arxiv
     version = importlib.metadata.version("arxiv")
-    client = arxiv.Client()  # smoke test
+    client = arxiv.Client() 
     return f"arxiv {version} | client OK"
 
 check("arXiv SDK", check_arxiv)
